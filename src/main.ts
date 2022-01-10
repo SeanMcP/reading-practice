@@ -5,6 +5,7 @@ console.log("🏃‍♀️ Reading Practice is up and running!");
 
 const questionEl = document.getElementById("question");
 const score = document.getElementById("score") as HTMLProgressElement;
+const successAudio = new Audio("/yay.mp3");
 
 let index = -1;
 let previouslySeen = [];
@@ -74,6 +75,8 @@ questionEl.addEventListener("click", (event) => {
   if (event.target.dataset.answer === "true") {
     const nextValue = Number(score.value) + 1;
     score.value = nextValue;
+
+    successAudio.play();
 
     if (nextValue == score.max) {
       document.body.dataset.winner = "true";

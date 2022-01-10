@@ -464,6 +464,7 @@ var _utils = require("./utils");
 console.log("🏃‍♀️ Reading Practice is up and running!");
 const questionEl = document.getElementById("question");
 const score = document.getElementById("score");
+const successAudio = new Audio("/yay.mp3");
 let index = -1;
 let previouslySeen = [];
 const words = _utils.shuffle(_cvcWords.easy);
@@ -512,6 +513,7 @@ questionEl.addEventListener("click", (event)=>{
     if (event.target.dataset.answer === "true") {
         const nextValue = Number(score.value) + 1;
         score.value = nextValue;
+        successAudio.play();
         if (nextValue == score.max) {
             document.body.dataset.winner = "true";
             return;
