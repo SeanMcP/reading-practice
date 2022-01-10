@@ -76,20 +76,8 @@ questionEl.addEventListener("click", (event) => {
     score.value = nextValue;
 
     if (nextValue == score.max) {
-      // There was a timing issue using data attributes with
-      // Firefox here, so I went with a class to toggle.
-      document.body.classList.add("winner");
-
-      setTimeout(() => {
-        if (confirm("💪 Great practicing! Would you like to play again?")) {
-          score.value = 0;
-          previouslySeen = [];
-          document.body.classList.remove("winner");
-          question();
-        }
-      }, 250);
-    } else {
-      alert("You did it! 😊");
+      document.body.dataset.winner = "true";
+      return;
     }
 
     previouslySeen.push(questionEl.dataset.word);
@@ -102,8 +90,8 @@ questionEl.addEventListener("click", (event) => {
       );
       question();
     } else {
-      event.target.disabled = true;
-      questionEl.dataset.attempted = true;
+      event.target.disabled = "true";
+      questionEl.dataset.attempted = "true";
     }
   }
 });

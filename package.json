@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "parcel src/index.html --dist-dir docs/"
+    "start": "parcel src/index.html --dist-dir docs/",
+    "prestart": "rm -rf docs/*.*"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.0.0",

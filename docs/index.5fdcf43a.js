@@ -513,18 +513,9 @@ questionEl.addEventListener("click", (event)=>{
         const nextValue = Number(score.value) + 1;
         score.value = nextValue;
         if (nextValue == score.max) {
-            // There was a timing issue using data attributes with
-            // Firefox here, so I went with a class to toggle.
-            document.body.classList.add("winner");
-            setTimeout(()=>{
-                if (confirm("💪 Great practicing! Would you like to play again?")) {
-                    score.value = 0;
-                    previouslySeen = [];
-                    document.body.classList.remove("winner");
-                    question();
-                }
-            }, 250);
-        } else alert("You did it! 😊");
+            document.body.dataset.winner = "true";
+            return;
+        }
         previouslySeen.push(questionEl.dataset.word);
         question();
     } else if (questionEl.dataset.attempted === "true") {
@@ -532,8 +523,8 @@ questionEl.addEventListener("click", (event)=>{
         alert(wordToSentence(questionEl.dataset.word) + " " + questionEl.dataset.emoji);
         question();
     } else {
-        event.target.disabled = true;
-        questionEl.dataset.attempted = true;
+        event.target.disabled = "true";
+        questionEl.dataset.attempted = "true";
     }
 });
 

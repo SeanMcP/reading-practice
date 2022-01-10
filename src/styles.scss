@@ -11,7 +11,7 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin: 0;
 
-  &.winner {
+  &[data-winner] {
     background-image: url("fireworks.gif");
     background-size: cover;
 
@@ -22,7 +22,7 @@ body {
     &::after {
       align-items: center;
       bottom: 0;
-      content: "You did it!";
+      content: "💪 Great practice!";
       color: white;
       display: flex;
       font-size: 8rem;
@@ -34,6 +34,21 @@ body {
       right: 0;
       text-shadow: 0 0.25rem 0.5rem black;
       top: 0;
+    }
+
+    #play-again {
+      background-color: hsl(36, 100%, 45%);
+      border-radius: 4px;
+      color: white;
+      display: initial;
+      font-size: 150%;
+      font-weight: bold;
+      position: fixed;
+      right: 4rem;
+      bottom: 4rem;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      z-index: 1;
     }
   }
 }
@@ -68,4 +83,8 @@ body {
       }
     }
   }
+}
+
+#play-again {
+  display: none;
 }
