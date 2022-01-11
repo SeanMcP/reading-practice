@@ -464,7 +464,9 @@ var _utils = require("./utils");
 console.log("🏃‍♀️ Reading Practice is up and running!");
 const questionEl = document.getElementById("question");
 const score = document.getElementById("score");
-const successAudio = new Audio("/yay.mp3");
+// URL pattern required for Parcel
+const audioURL = new URL(require("2a1450ca06adbfba"));
+const successAudio = new Audio(audioURL.toString());
 let index = -1;
 let previouslySeen = [];
 const words = _utils.shuffle(_cvcWords.easy);
@@ -530,7 +532,7 @@ questionEl.addEventListener("click", (event)=>{
     }
 });
 
-},{"./cvc-words":"jNyRa","./utils":"jxYDB"}],"jNyRa":[function(require,module,exports) {
+},{"./cvc-words":"jNyRa","./utils":"jxYDB","2a1450ca06adbfba":"1SnZ0"}],"jNyRa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "easy", ()=>easy
@@ -912,6 +914,44 @@ function shuffle(original) {
     return array;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["dfSdH","jZgE0"], "jZgE0", "parcelRequiref00b")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"1SnZ0":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('9uhNT') + "yay.931e4f50.mp3" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"chiK4":[function(require,module,exports) {
+"use strict";
+var bundleURL = {
+};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return '/';
+}
+function getBaseURL(url) {
+    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
+    if (!matches) throw new Error('Origin not found');
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}]},["dfSdH","jZgE0"], "jZgE0", "parcelRequiref00b")
 
 //# sourceMappingURL=index.5fdcf43a.js.map

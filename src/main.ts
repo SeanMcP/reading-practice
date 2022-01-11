@@ -5,7 +5,10 @@ console.log("🏃‍♀️ Reading Practice is up and running!");
 
 const questionEl = document.getElementById("question");
 const score = document.getElementById("score") as HTMLProgressElement;
-const successAudio = new Audio("/yay.mp3");
+
+// URL pattern required for Parcel
+const audioURL = new URL("yay.mp3", import.meta.url)
+const successAudio = new Audio(audioURL.toString());
 
 let index = -1;
 let previouslySeen = [];
