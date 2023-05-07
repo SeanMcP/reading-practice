@@ -1,10 +1,10 @@
-import { easy } from "./cvc-words";
-import { shuffle } from "./utils";
+import { easy } from "./cvc-words.js";
+import { shuffle } from "./utils.js";
 
 console.log("🏃‍♀️ Reading Practice is up and running!");
 
 const questionEl = document.getElementById("question");
-const score = document.getElementById("score") as HTMLProgressElement;
+const score = document.getElementById("score");
 
 // URL pattern required for Parcel
 const audioURL = new URL("yay.mp3", import.meta.url)
