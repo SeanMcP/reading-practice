@@ -6,9 +6,17 @@ console.log("🏃‍♀️ Reading Practice is up and running!");
 const questionEl = document.getElementById("question");
 const score = document.getElementById("score");
 
-// URL pattern required for Parcel
-const audioURL = new URL("yay.mp3", import.meta.url)
-const successAudio = new Audio(audioURL.toString());
+const audioURLs = [
+  new URL("yay.mp3", import.meta.url),
+  new URL("good-working.mp3", import.meta.url),
+];
+
+let audioCount = Math.random() > 0.5 ? 1 : 0;
+function getAudio() {
+  const url = audioURLs[audioCount % audioURLs.length];
+  audioCount++;
+  return new Audio(url.toString());
+}
 
 let index = -1;
 let previouslySeen = [];
@@ -79,7 +87,7 @@ questionEl.addEventListener("click", (event) => {
     const nextValue = Number(score.value) + 1;
     score.value = nextValue;
 
-    successAudio.play();
+    getAudio().play();
 
     if (nextValue == score.max) {
       document.body.dataset.winner = "true";
