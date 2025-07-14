@@ -43,12 +43,22 @@ body[data-winner] #play-again {
   text-decoration: none;
   z-index: 1;
 }
+body[data-winner] main :not(#play-again) {
+  display: none;
+}
 #game {
   max-width: 600px;
   margin: 0 auto;
 }
 #game #score {
   width: 100%;
+}
+#game fieldset {
+  border: none;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
 }
 #game #question {
   padding: 1rem 0;
@@ -58,6 +68,9 @@ body[data-winner] #play-again {
   font-weight: bold;
   letter-spacing: 0.25ch;
   text-align: center;
+}
+body:has(input[value='upper']:checked) .question__word {
+  text-transform: uppercase;
 }
 #game #question .question__options {
   display: flex;

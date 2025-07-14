@@ -14,9 +14,19 @@
   </head>
   <body>
     <main id="game">
+      <fieldset>
+        <label>
+          <input type="radio" name="case" value="upper" checked />
+          ABC
+        </label>
+        <label>
+          <input type="radio" name="case" value="lower" />
+          abc
+        </label>
+      </fieldset>
       <progress id="score" max="5" value="0"></progress>
       <div id="question"></div>
-      <a id="play-again" href="/">Again?</a>
+      <a id="play-again" href="./">Again?</a>
     </main>
     <script src="main.js" type="module"></script>
   </body>
