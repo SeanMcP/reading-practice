@@ -131,7 +131,7 @@ ${options
   setTimeout(() => {
     const options = questionEl.querySelector(".question__options");
     options.dataset.visible = "true";
-  }, 3000);
+  }, 10_000);
 }
 
 function getOptions(current) {
