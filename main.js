@@ -11,6 +11,78 @@ const audioURLs = [
   new URL("good-working.mp3", import.meta.url),
 ];
 
+const letterNamesAudioURLs = {
+  a: new URL("letters-and-sounds/name-a.wav", import.meta.url),
+  b: new URL("letters-and-sounds/name-b.wav", import.meta.url),
+  c: new URL("letters-and-sounds/name-c.wav", import.meta.url),
+  d: new URL("letters-and-sounds/name-d.wav", import.meta.url),
+  e: new URL("letters-and-sounds/name-e.wav", import.meta.url),
+  f: new URL("letters-and-sounds/name-f.wav", import.meta.url),
+  g: new URL("letters-and-sounds/name-g.wav", import.meta.url),
+  h: new URL("letters-and-sounds/name-h.wav", import.meta.url),
+  i: new URL("letters-and-sounds/name-i.wav", import.meta.url),
+  j: new URL("letters-and-sounds/name-j.wav", import.meta.url),
+  k: new URL("letters-and-sounds/name-k.wav", import.meta.url),
+  l: new URL("letters-and-sounds/name-l.wav", import.meta.url),
+  m: new URL("letters-and-sounds/name-m.wav", import.meta.url),
+  n: new URL("letters-and-sounds/name-n.wav", import.meta.url),
+  o: new URL("letters-and-sounds/name-o.wav", import.meta.url),
+  p: new URL("letters-and-sounds/name-p.wav", import.meta.url),
+  q: new URL("letters-and-sounds/name-q.wav", import.meta.url),
+  r: new URL("letters-and-sounds/name-r.wav", import.meta.url),
+  s: new URL("letters-and-sounds/name-s.wav", import.meta.url),
+  t: new URL("letters-and-sounds/name-t.wav", import.meta.url),
+  u: new URL("letters-and-sounds/name-u.wav", import.meta.url),
+  v: new URL("letters-and-sounds/name-v.wav", import.meta.url),
+  w: new URL("letters-and-sounds/name-w.wav", import.meta.url),
+  x: new URL("letters-and-sounds/name-x.wav", import.meta.url),
+  y: new URL("letters-and-sounds/name-y.wav", import.meta.url),
+  z: new URL("letters-and-sounds/name-z.wav", import.meta.url),
+};
+
+const letterSoundsAudioURLs = {
+  a: new URL("letters-and-sounds/sound-a.wav", import.meta.url),
+  b: new URL("letters-and-sounds/sound-b.wav", import.meta.url),
+  c: new URL("letters-and-sounds/sound-c.wav", import.meta.url),
+  d: new URL("letters-and-sounds/sound-d.wav", import.meta.url),
+  e: new URL("letters-and-sounds/sound-e.wav", import.meta.url),
+  f: new URL("letters-and-sounds/sound-f.wav", import.meta.url),
+  g: new URL("letters-and-sounds/sound-g.wav", import.meta.url),
+  h: new URL("letters-and-sounds/sound-h.wav", import.meta.url),
+  i: new URL("letters-and-sounds/sound-i.wav", import.meta.url),
+  j: new URL("letters-and-sounds/sound-j.wav", import.meta.url),
+  k: new URL("letters-and-sounds/sound-k.wav", import.meta.url),
+  l: new URL("letters-and-sounds/sound-l.wav", import.meta.url),
+  m: new URL("letters-and-sounds/sound-m.wav", import.meta.url),
+  n: new URL("letters-and-sounds/sound-n.wav", import.meta.url),
+  o: new URL("letters-and-sounds/sound-o.wav", import.meta.url),
+  p: new URL("letters-and-sounds/sound-p.wav", import.meta.url),
+  q: new URL("letters-and-sounds/sound-q.wav", import.meta.url),
+  r: new URL("letters-and-sounds/sound-r.wav", import.meta.url),
+  s: new URL("letters-and-sounds/sound-s.wav", import.meta.url),
+  t: new URL("letters-and-sounds/sound-t.wav", import.meta.url),
+  u: new URL("letters-and-sounds/sound-u.wav", import.meta.url),
+  v: new URL("letters-and-sounds/sound-v.wav", import.meta.url),
+  w: new URL("letters-and-sounds/sound-w.wav", import.meta.url),
+  x: new URL("letters-and-sounds/sound-x.wav", import.meta.url),
+  y: new URL("letters-and-sounds/sound-y.wav", import.meta.url),
+  z: new URL("letters-and-sounds/sound-z.wav", import.meta.url),
+};
+
+function playLetterName(letter) {
+  const url = letterNamesAudioURLs[letter.toLowerCase()];
+  if (!url) return;
+  const audio = new Audio(url.toString());
+  audio.play();
+}
+
+function playLetterSound(letter) {
+  const url = letterSoundsAudioURLs[letter.toLowerCase()];
+  if (!url) return;
+  const audio = new Audio(url.toString());
+  audio.play();
+}
+
 let audioCount = Math.random() > 0.5 ? 1 : 0;
 function getAudio() {
   const url = audioURLs[audioCount % audioURLs.length];
@@ -31,7 +103,19 @@ function question() {
   questionEl.dataset.emoji = word.emoji;
   delete questionEl.dataset.attempted;
   questionEl.innerHTML = `
-<div class="question__word">${word.text}</div>
+<div class="question__word">
+${word.text
+  .split("")
+  .map(
+    (letter) =>
+      `<div class="question__letter">
+        <span>${letter}</span>
+        <button aria-label="name" data-name="${letter}"></button>
+        <button aria-label="sound" data-sound="${letter}"></button>
+      </div>`
+  )
+  .join("")}
+</div>
 <div class="question__options">
 ${options
   .map(
@@ -43,6 +127,11 @@ ${options
   .join("")}
 </div>
 `;
+
+  setTimeout(() => {
+    const options = questionEl.querySelector(".question__options");
+    options.dataset.visible = "true";
+  }, 3000);
 }
 
 function getOptions(current) {
@@ -67,21 +156,22 @@ function getOptions(current) {
 
 question();
 
-function speak(word) {
-  let string = word.split("").join(",");
-  string += ", spells " + word;
-
-  const utterance = new SpeechSynthesisUtterance(string);
-  utterance.rate = 0.75;
-  speechSynthesis.speak(utterance);
-}
-
-function wordToSentence(word) {
-  return word.split("").join("-") + " spells " + word;
-}
-
 questionEl.addEventListener("click", (event) => {
   if (!questionEl.contains(event.target)) return;
+
+  if (event.target.classList.contains("question__word")) {
+    return;
+  }
+
+  if (event.target.dataset.name) {
+    playLetterName(event.target.dataset.name);
+    return;
+  }
+
+  if (event.target.dataset.sound) {
+    playLetterSound(event.target.dataset.sound);
+    return;
+  }
 
   if (event.target.dataset.answer === "true") {
     const nextValue = Number(score.value) + 1;
@@ -98,10 +188,6 @@ questionEl.addEventListener("click", (event) => {
     question();
   } else {
     if (questionEl.dataset.attempted === "true") {
-      speak(questionEl.dataset.word);
-      alert(
-        wordToSentence(questionEl.dataset.word) + " " + questionEl.dataset.emoji
-      );
       question();
     } else {
       event.target.disabled = "true";

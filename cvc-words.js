@@ -3,7 +3,8 @@ export const easy = [
   { text: "bag", emoji: "🛍️", tooClose: [] },
   { text: "bed", emoji: "🛏️", tooClose: ["nap"] },
   { text: "bin", emoji: "🗑️", tooClose: [] },
-  { text: "boy", emoji: "👦", tooClose: ["kid", "son", "man"] },
+  // Irregular
+  // { text: "boy", emoji: "👦", tooClose: ["kid", "son", "man"] },
   { text: "bug", emoji: "🐛", tooClose: [] },
   { text: "can", emoji: "🥫", tooClose: [] },
   { text: "cap", emoji: "🧢", tooClose: [] },
@@ -37,8 +38,9 @@ export const easy = [
   { text: "run", emoji: "🏃‍♀️", tooClose: [] },
   { text: "sad", emoji: "😢", tooClose: [] },
   { text: "sob", emoji: "😭", tooClose: [] },
-  { text: "son", emoji: "👨‍👦", tooClose: ["kid", "boy"] },
-  { text: "sun", emoji: "☀️", tooClose: [] },
+  // Irregular
+  // { text: "son", emoji: "👨‍👦", tooClose: ["kid", "boy", "sun"] },
+  { text: "sun", emoji: "☀️", tooClose: ["son"] },
   { text: "tag", emoji: "🏷️", tooClose: [] },
   { text: "ten", emoji: "🔟", tooClose: [] },
   { text: "van", emoji: "🚙", tooClose: ["car"] },
