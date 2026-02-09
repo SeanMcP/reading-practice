@@ -80,40 +80,11 @@ body:has(input[value='upper']:checked) .question__letter {
 }
 
 .question__letter {
-  align-items: center;
-  display: inline-grid;
-  grid-template-columns: 1fr 1fr;
+  font-size: 7rem;
+  font-weight: bold;
   height: 160px;
-  justify-content: center;
+  text-align: center;
   width: 140px;
-
-  & span {
-    font-size: 7rem;
-    font-weight: bold;
-    grid-column: 1 / span 2;
-    text-align: center;
-  }
-
-  & button {
-    background-color: transparent;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
-    height: 32px;
-    
-    &:not(:hover, :focus-visible) {
-      opacity: 0.25;
-    }
-  }
-
-  & button[data-name] {
-    background-image: url(name.svg);
-  }
-
-  & button[data-sound] {
-    background-image: url(sound.svg);
-  }
 }
 
 #game #question .question__options {
@@ -127,11 +98,19 @@ body:has(input[value='upper']:checked) .question__letter {
     pointer-events: none;
   }
 }
+
 #game #question .question__options button {
   flex: 1;
   padding: 1rem;
   font-size: 3rem;
 }
+
 #play-again {
   display: none;
+}
+
+.activity-button {
+  border-radius: 2rem;
+  border: 3px solid hsla(0, 0%, 0%, 0.25);
+  corner-shape: squircle;
 }

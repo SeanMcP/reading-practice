@@ -108,11 +108,9 @@ ${word.text
   .split("")
   .map(
     (letter) =>
-      `<div class="question__letter">
-        <span>${letter}</span>
-        <button aria-label="name" data-name="${letter}"></button>
-        <button aria-label="sound" data-sound="${letter}"></button>
-      </div>`
+      `<button class="activity-button question__letter" data-letter="${letter}">
+        ${letter}
+      </button>`,
   )
   .join("")}
 </div>
@@ -120,9 +118,9 @@ ${word.text
 ${options
   .map(
     (option) =>
-      `<button data-answer=${option.text === word.text}>${
+      `<button class="activity-button" data-answer=${option.text === word.text}>${
         option.emoji
-      }</button>`
+      }</button>`,
   )
   .join("")}
 </div>
@@ -156,6 +154,9 @@ function getOptions(current) {
 
 question();
 
+let pointerDownTimeout;
+let shouldCancelClick = false;
+
 questionEl.addEventListener("click", (event) => {
   if (!questionEl.contains(event.target)) return;
 
@@ -163,13 +164,9 @@ questionEl.addEventListener("click", (event) => {
     return;
   }
 
-  if (event.target.dataset.name) {
-    playLetterName(event.target.dataset.name);
-    return;
-  }
-
-  if (event.target.dataset.sound) {
-    playLetterSound(event.target.dataset.sound);
+  if (event.target.matches(".question__letter")) {
+    !shouldCancelClick && playLetterName(event.target.dataset.letter);
+    shouldCancelClick = false;
     return;
   }
 
@@ -193,5 +190,23 @@ questionEl.addEventListener("click", (event) => {
       event.target.disabled = "true";
       questionEl.dataset.attempted = "true";
     }
+  }
+});
+
+questionEl.addEventListener("pointerdown", (event) => {
+  if (!event.target.matches(".question__letter")) return;
+
+  pointerDownTimeout = setTimeout(() => {
+    playLetterSound(event.target.dataset.letter);
+    shouldCancelClick = true;
+  }, 500);
+});
+
+questionEl.addEventListener("pointerup", (event) => {
+  if (!event.target.matches(".question__letter")) return;
+
+  if (pointerDownTimeout) {
+    event.preventDefault();
+    clearTimeout(pointerDownTimeout);
   }
 });
