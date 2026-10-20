@@ -3,6 +3,18 @@ import { shuffle } from "./utils.js";
 
 console.log("🏃‍♀️ Reading Practice is up and running!");
 
+const settings = JSON.parse(localStorage.getItem("settings") || `{"case":"upper"}`);
+const settingsFieldsetEl = document.querySelector("fieldset");
+settingsFieldsetEl.querySelectorAll(`input`).forEach(input => {
+  input.checked = input.value === settings.case;
+});
+settingsFieldsetEl.addEventListener("change", (event) => {
+  localStorage.setItem("settings", JSON.stringify({
+    ...settings,
+    case: event.target.value,
+  }));
+});
+
 const questionEl = document.getElementById("question");
 const score = document.getElementById("score");
 
